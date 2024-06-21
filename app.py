@@ -38,7 +38,7 @@ def query_redshift(query):
     conn.close()
     return colnames, results
 
-def get_response_with_redshift(prompt):
+def get_response_with_redshift(prompt, dropdown_value):
     if 'database query' in prompt:  # Example condition to trigger a Redshift query
         query = "SELECT * FROM ga4_floorforce.conversion_rates_raw LIMIT 5;"  # Example query
         columns, results = query_redshift(query)
@@ -54,8 +54,9 @@ def index():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_input = request.json.get('message')
-    response = get_response_with_redshift(user_input)
+    user_input = request.json.get('message');
+    dropdown_value = request.json.get('selectedValue');
+    response = get_response_with_redshift(user_input, dropdown_value)
     return jsonify({'response': response})
 
 if __name__ == '__main__':

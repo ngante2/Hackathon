@@ -79,6 +79,9 @@ def index():
 def chat():
     user_input = request.json.get('message');
     dropdown_value = request.json.get('dropdown');
+     loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(aiTool(user_input))
     response = get_response_with_redshift(user_input, dropdown_value)
     return jsonify({'response': response})
 

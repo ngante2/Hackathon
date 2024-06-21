@@ -39,3 +39,4 @@ async function sendMessage(): Promise<void> {
     // Scroll to the bottom of the chat box
     chatBox.scrollTop = chatBox.scrollHeight;
 }
+
